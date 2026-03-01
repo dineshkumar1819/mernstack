@@ -1,13 +1,13 @@
 
 #stage 1
 
-FROM node:14-alpine as Builder
+FROM node:14-alpine AS Builder
 
 WORKDIR /app
 
 COPY package*.json /app/
 
-RUN npm  ci --omit=dev && npm cache clean --force
+RUN npm  ci --only=production && npm cache clean --force
 
 COPY . .
 
