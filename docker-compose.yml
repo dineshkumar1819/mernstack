@@ -4,9 +4,7 @@ services:
   
 
   backend:
-    build:
-      context: ./backend
-      dockerfile: dockerfile
+    image: dineshkumar2026/mern-backend:latest
     container_name: backend
     restart: always
     env_file:
@@ -17,9 +15,7 @@ services:
       - db
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: dockerfile
+    image: dineshkumar2026/mern-frontend:latest
     container_name: frontend
     restart: always
     ports:
