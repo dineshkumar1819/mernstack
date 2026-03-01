@@ -5,7 +5,9 @@ WORKDIR /app
 
 COPY package*.json /app/
 
-RUN npm ci --omit=dev && npm cache clean --force
+# Remove --omit=dev because React build tools are in devDependencies
+# Add --legacy-peer-deps to fix the conflict
+RUN npm ci --legacy-peer-deps && npm cache clean --force
 
 COPY . .
 
