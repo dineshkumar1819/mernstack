@@ -1,12 +1,10 @@
 # stage 1
-FROM node:18-alpine AS builder
+FROM node:16-alpine AS builder
 
 WORKDIR /app
 
 COPY package*.json /app/
 
-# Remove --omit=dev because React build tools are in devDependencies
-# Add --legacy-peer-deps to fix the conflict
 RUN npm ci --legacy-peer-deps && npm cache clean --force
 
 COPY . .
