@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: dockerfile
+    container_name: backend
+    restart: always
+    env_file:
+      - ./backend/.variables.env
+    networks:
+      - mernstack
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: dockerfile
+    container_name: frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on: 
+      - backend
+    networks:
+      - mernstack
+
+  db:
+    image: mongo:7
+    container_name: mongo-db
+    restart: always
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - mernstack
+
+volumes:
+  mongo-data:
+
+networks:
+  mernstack:
+    driver: bridge
